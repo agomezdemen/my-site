@@ -18,6 +18,11 @@
   background: var(--tab-bg);
 }
 
+.nav-scrim,
+.menu-toggle {
+  display: none;
+}
+
 .rail-field {
   position: absolute;
   inset: 0;
@@ -219,35 +224,80 @@
 
 @media (max-width: 760px) {
   :root {
-    --side-tab-width: 4.85rem;
+    --side-tab-width: 17rem;
     --page-padding: 1.1rem;
     --blog-bar-height: 3.4rem;
   }
 
   .binder {
-    grid-template-columns: var(--side-tab-width) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .tab-slot {
-    z-index: 20;
+    z-index: 40;
+    width: min(var(--side-tab-width), 84vw);
+    box-shadow: 1rem 0 2rem rgba(0, 0, 0, 0.18);
+    transform: translateX(-105%);
+    transition: transform 180ms ease;
+  }
+
+  .binder[data-nav-open="true"] .tab-slot {
+    transform: translateX(0);
+  }
+
+  .nav-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 30;
+    display: block;
+    border: 0;
+    background: rgba(0, 0, 0, 0.32);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 180ms ease;
+  }
+
+  .binder[data-nav-open="true"] .nav-scrim {
+    opacity: 1;
+    pointer-events: auto;
   }
 
   .page-frame {
+    grid-column: 1;
     min-height: 100svh;
   }
 
   .page-header {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: center;
+    flex-direction: row;
     min-height: auto;
+    flex-wrap: wrap;
+  }
+
+  .menu-toggle {
+    display: inline-grid;
+    place-items: center;
+    width: 2.2rem;
+    height: 2.2rem;
+    border: 1px solid var(--border);
+    background: var(--panel-bg-strong);
+    color: var(--ink);
+    cursor: pointer;
+    font: 1.05rem/1 var(--mono);
+    padding: 0;
+  }
+
+  .brand-link {
+    margin-right: auto;
   }
 
   .secondary-actions {
     justify-content: flex-start;
+    width: 100%;
   }
 
   .page-content {
-    min-height: calc(100svh - 10rem);
+    min-height: calc(100svh - 7.5rem);
   }
 
   .rule-grid {

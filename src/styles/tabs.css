@@ -64,16 +64,21 @@
 }
 
 @media (max-width: 760px) {
+  .side-tabs {
+    justify-content: flex-start;
+    padding-top: 4.5rem;
+  }
+
   .side-tabs__list {
     grid-template-columns: 1fr;
     gap: 0;
   }
 
   .side-tab {
-    justify-content: center;
-    min-height: 3rem;
-    padding: 0 0.25rem;
-    font-size: 0.67rem;
+    justify-content: flex-start;
+    min-height: 3.75rem;
+    padding: 0 1.15rem;
+    font-size: 0.84rem;
   }
 
   .side-tab:hover,

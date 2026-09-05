@@ -16,6 +16,7 @@ const tabs: Tab[] = [
 export function createSideTabs(activeSection: PrimarySection): HTMLElement {
   const nav = document.createElement('nav')
   nav.className = 'side-tabs'
+  nav.id = 'primary-navigation'
   nav.setAttribute('aria-label', 'Primary sections')
 
   const list = document.createElement('ul')

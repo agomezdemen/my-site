@@ -4,6 +4,7 @@ import './styles/tabs.css'
 import './styles/blog.css'
 import './styles/projects.css'
 import { createSideTabs } from './components/side-tabs.ts'
+import { initializeMobileNavigation } from './lib/mobile-navigation.ts'
 import { initializeSideTabMotion } from './lib/side-tab-motion.ts'
 import { initializeTheme } from './lib/theme.ts'
 import { resolveRoute, startRouter } from './router/router.ts'
@@ -18,8 +19,13 @@ app.innerHTML = `
   <div class="site-shell">
     <div class="binder" data-binder>
       <div class="tab-slot" data-tabs></div>
+      <button class="nav-scrim" type="button" data-nav-scrim aria-label="Close navigation"></button>
       <section class="page-frame" aria-label="Portfolio page">
         <header class="page-header">
+          <button class="menu-toggle" type="button" data-menu-toggle aria-controls="primary-navigation" aria-expanded="false">
+            <span aria-hidden="true">☰</span>
+            <span class="visually-hidden">Open navigation</span>
+          </button>
           <a class="brand-link" href="/about" data-link aria-label="Go to About">
             <span class="brand-mark" aria-hidden="true">~/</span>
             <span>alejandro</span>
@@ -41,12 +47,14 @@ const tabsHost = app.querySelector<HTMLElement>('[data-tabs]')
 const content = app.querySelector<HTMLElement>('#content')
 const binder = app.querySelector<HTMLElement>('[data-binder]')
 const themeToggle = app.querySelector<HTMLButtonElement>('[data-theme-toggle]')
+const menuToggle = app.querySelector<HTMLButtonElement>('[data-menu-toggle]')
 
-if (!tabsHost || !content || !binder || !themeToggle) {
+if (!tabsHost || !content || !binder || !themeToggle || !menuToggle) {
   throw new Error('Portfolio shell failed to initialize')
 }
 
 initializeTheme(themeToggle)
 tabsHost.replaceChildren(createSideTabs(resolveRoute(window.location.pathname).section))
 initializeSideTabMotion(tabsHost)
+initializeMobileNavigation({ binder, tabsHost, toggle: menuToggle })
 startRouter({ content, tabsHost, binder })
