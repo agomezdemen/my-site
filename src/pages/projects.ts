@@ -4,7 +4,7 @@ export function renderProjectsPage(): string {
   return `
     <section class="stack">
       <p class="eyebrow">Projects</p>
-      <h1>Systems projects with explicit constraints and measurable behavior.</h1>
+      <h1>Projects in systems, performance, and software engineering</h1>
       <div class="project-list">
         ${projects
           .map(
