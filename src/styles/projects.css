@@ -1,0 +1,85 @@
+.project-list,
+.project-sections {
+  display: grid;
+  gap: 1rem;
+}
+
+.project-card {
+  display: grid;
+  gap: 1rem;
+  border-top: 1px solid var(--border);
+  padding: 1.2rem 0;
+}
+
+.project-card__status {
+  color: var(--accent);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.project-card h2 {
+  margin: 0.2rem 0 0.4rem;
+}
+
+.project-card p,
+.project-sections p,
+.project-detail-list {
+  max-width: 65ch;
+  color: var(--muted);
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  padding: 0;
+  list-style: none;
+}
+
+.tech-list li {
+  border: 1px solid var(--border);
+  background: var(--panel-bg-strong);
+  padding: 0.18rem 0.55rem;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 0.78rem;
+}
+
+.tech-list--large {
+  max-width: 52rem;
+}
+
+.project-sections {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 1px solid var(--border);
+}
+
+.project-sections section {
+  display: grid;
+  align-content: start;
+  gap: 0.7rem;
+  border-bottom: 1px solid var(--border);
+  padding: 1.15rem 1rem 1.15rem 0;
+}
+
+.project-sections h2 {
+  margin-bottom: 0;
+}
+
+.project-detail-list {
+  display: grid;
+  gap: 0.3rem;
+  padding-left: 1.1rem;
+}
+
+.project-detail-list li::marker {
+  color: var(--accent);
+}
+
+@media (max-width: 760px) {
+  .project-sections {
+    grid-template-columns: 1fr;
+  }
+}

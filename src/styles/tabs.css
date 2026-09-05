@@ -1,0 +1,95 @@
+.side-tabs {
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.side-tabs__list {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  width: 100%;
+}
+
+.side-tab {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 3.5rem;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--tab-bg) 82%, transparent);
+  color: var(--ink);
+  font-family: var(--mono);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 0.95rem;
+  transform-origin: right center;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.side-tab:hover {
+  background: color-mix(in srgb, var(--panel-bg-strong) 88%, transparent);
+  color: var(--accent-ink);
+}
+
+.side-tab--active {
+  z-index: 4;
+  background: color-mix(in srgb, var(--tab-active) 91%, transparent);
+  color: var(--accent-ink);
+  box-shadow: inset 2px 0 0 var(--accent);
+}
+
+.side-tab--active::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -1px;
+  width: 1px;
+  height: 100%;
+  background: color-mix(in srgb, var(--tab-active) 91%, transparent);
+}
+
+@media (max-width: 760px) {
+  .side-tabs__list {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .side-tab {
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 0.25rem;
+    font-size: 0.67rem;
+  }
+
+  .side-tab:hover,
+  .side-tab--active {
+    transform: none;
+  }
+
+  .side-tab--active {
+    box-shadow: inset 3px 0 0 var(--accent);
+  }
+
+  .side-tab--active::after {
+    top: 0;
+    right: -1px;
+    bottom: auto;
+    width: 1px;
+    height: 100%;
+  }
+}
