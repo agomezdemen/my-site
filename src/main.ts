@@ -30,10 +30,7 @@ app.innerHTML = `
             <span class="brand-mark" aria-hidden="true">~/</span>
             <span>alejandro</span>
           </a>
-          <div class="secondary-actions" aria-label="Secondary links">
-            <a href="https://github.com/agomezdemen" target="_blank" rel="noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/alejandro-gomez-de-mendieta/" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="resume-action" href="/resume.pdf" target="_blank" rel="noreferrer">Resume</a>
+          <div class="secondary-actions" aria-label="Display settings">
             <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false">☾</button>
           </div>
         </header>

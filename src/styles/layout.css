@@ -74,10 +74,9 @@
 }
 
 .secondary-actions {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  flex-wrap: wrap;
   justify-content: flex-end;
 }
 
@@ -195,11 +194,6 @@
   align-items: start;
 }
 
-.loading-note {
-  color: var(--muted);
-  font-family: var(--mono);
-}
-
 @keyframes page-enter {
   from {
     opacity: 0.35;
@@ -291,13 +285,8 @@
     margin-right: auto;
   }
 
-  .secondary-actions {
-    justify-content: flex-start;
-    width: 100%;
-  }
-
   .page-content {
-    min-height: calc(100svh - 7.5rem);
+    min-height: calc(100svh - 4.5rem);
   }
 
   .rule-grid {

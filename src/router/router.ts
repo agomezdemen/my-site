@@ -32,6 +32,8 @@ const pageTitles: Record<Route['kind'], string> = {
   'not-found': 'Page not found',
 }
 
+let pageAnimationFrame = 0
+
 export function resolveRoute(pathname: string): Route {
   const path = normalizePath(pathname)
 
@@ -107,38 +109,52 @@ export function startRouter(parts: RouterParts): void {
   render()
 }
 
-async function renderRoute(route: Route, { content, tabsHost, binder }: RouterParts): Promise<void> {
-  replacePrimaryTabs(tabsHost, route.section)
+function renderRoute(route: Route, { content, tabsHost, binder }: RouterParts): void {
+  updatePrimaryTabs(tabsHost, route.section)
   binder.dataset.activeSection = route.section
   content.classList.remove('page-content--entered')
-  content.setAttribute('aria-busy', 'true')
-  content.innerHTML = '<p class="loading-note">Loading page...</p>'
 
-  const rendered = await loadRoute(route)
+  const rendered = loadRoute(route)
   document.title = `${rendered.title} | Alejandro Gomez de Mendieta`
   content.innerHTML = rendered.html
-  content.setAttribute('aria-busy', 'false')
   initializeRelatedCarousels(content)
   content.focus({ preventScroll: true })
 
-  requestAnimationFrame(() => {
+  window.cancelAnimationFrame(pageAnimationFrame)
+  pageAnimationFrame = window.requestAnimationFrame(() => {
     content.classList.add('page-content--entered')
   })
 }
 
-function replacePrimaryTabs(tabsHost: HTMLElement, section: PrimarySection): void {
-  const background = tabsHost.querySelector<HTMLCanvasElement>('.rail-field')
-  const tabs = createSideTabs(section)
+function updatePrimaryTabs(tabsHost: HTMLElement, section: PrimarySection): void {
+  const existingTabs = tabsHost.querySelectorAll<HTMLAnchorElement>('.side-tab')
 
-  if (background) {
-    tabsHost.replaceChildren(background, tabs)
+  if (existingTabs.length === 0) {
+    const background = tabsHost.querySelector<HTMLCanvasElement>('.rail-field')
+    const tabs = createSideTabs(section)
+
+    if (background) {
+      tabsHost.replaceChildren(background, tabs)
+      return
+    }
+
+    tabsHost.replaceChildren(tabs)
     return
   }
 
-  tabsHost.replaceChildren(tabs)
+  for (const tab of existingTabs) {
+    const isActive = tab.dataset.section === section
+    tab.classList.toggle('side-tab--active', isActive)
+
+    if (isActive) {
+      tab.setAttribute('aria-current', 'page')
+    } else {
+      tab.removeAttribute('aria-current')
+    }
+  }
 }
 
-async function loadRoute(route: Route): Promise<{ title: string; html: string }> {
+function loadRoute(route: Route): { title: string; html: string } {
   switch (route.kind) {
     case 'about':
       return { title: pageTitles.about, html: renderAboutPage() }
