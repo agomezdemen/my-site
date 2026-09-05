@@ -115,7 +115,7 @@ async function renderRoute(route: Route, { content, tabsHost, binder }: RouterPa
   content.innerHTML = '<p class="loading-note">Loading page...</p>'
 
   const rendered = await loadRoute(route)
-  document.title = `${rendered.title} | Portfolio`
+  document.title = `${rendered.title} | Alejandro Gomez de Mendieta`
   content.innerHTML = rendered.html
   content.setAttribute('aria-busy', 'false')
   initializeRelatedCarousels(content)
