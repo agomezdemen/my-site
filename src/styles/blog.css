@@ -69,7 +69,7 @@
 }
 
 .post-nav__item {
-  max-width: 12rem;
+  flex: 0 1 auto;
   min-width: 0;
   overflow: hidden;
   color: var(--muted);
@@ -115,12 +115,14 @@
 
 .markdown-article {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   justify-items: start;
+  overflow-wrap: anywhere;
 }
 
 .markdown-body {
   width: 100%;
-  max-width: var(--reading-max);
+  min-width: 0;
 }
 
 .related-panel {
@@ -140,7 +142,7 @@
 
 .related-panel--article {
   width: 100%;
-  max-width: var(--reading-max);
+  min-width: 0;
 }
 
 .related-panel--carousel {
@@ -216,6 +218,10 @@
 
 .markdown-body > * + * {
   margin-top: 1rem;
+}
+
+.markdown-body img {
+  height: auto;
 }
 
 .markdown-body h2,

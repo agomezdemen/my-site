@@ -139,6 +139,10 @@ The project index and detail route will render from that data automatically.
 
 To connect a project to blog posts, add the project's `slug` to a post's `relatedProjects` frontmatter. The project detail page automatically lists those posts, and each related blog post links back to the project.
 
+For the Modern C++ HTTP Server, use `relatedProjects: ["http-server"]`. This one field controls links in both directions; `description` is display text and does not connect posts to projects. Use the inline array format shown above, with slugs matching `src/lib/projects.ts`.
+
+For an italic tagline, put `*Your tagline here*` in the Markdown body after the closing `---`. Inline code also works inside italics, such as `` *Optimizing a parser with `perf`* ``. Frontmatter titles and descriptions are displayed as plain text.
+
 ## Implementation Notes
 
 - Primary navigation is `src/components/side-tabs.ts`
