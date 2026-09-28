@@ -1,7 +1,7 @@
 ---
 title: "Benchmarking, Profiling, Iterating: The Lifecycle of Performance"
 date: "2026-09-12"
-description: "http-server"
+description: "Using benchmarks and perf to trace unnecessary memory movement in my C++ HTTP parser, replace buffer erasure with a cursor, and measure the performance gains."
 relatedProjects: ["http-server"]
 ---
 

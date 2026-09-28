@@ -108,7 +108,9 @@ function renderInline(value: string): string {
     } else if (emphasis !== undefined) {
       html += `<em>${renderInline(emphasis)}</em>`
     } else {
-      const attributes = linkUrl.startsWith('/') ? 'data-link' : 'target="_blank" rel="noreferrer"'
+      const isLocal = linkUrl.startsWith('/') && !linkUrl.startsWith('//')
+      const isFile = /\.[^/.]+$/.test(linkUrl.split(/[?#]/)[0])
+      const attributes = !isLocal ? 'target="_blank" rel="noreferrer"' : isFile ? '' : 'data-link'
       html += `<a href="${escapeHtml(linkUrl)}" ${attributes}>${renderInline(label)}</a>`
     }
 

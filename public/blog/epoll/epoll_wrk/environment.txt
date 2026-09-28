@@ -1,0 +1,18 @@
+date_utc: 2026-09-28T13:18:00Z
+kernel: Linux 7.2.6-arch2-1 x86_64
+cpu_model: AMD Ryzen 7 PRO 5850U with Radeon Graphics
+logical_cpu_count: 16
+wrk_version: wrk f8eb608 [epoll]
+ulimit_n: 65536
+URL: http://127.0.0.1:8080/
+wrk_threads: 4
+duration: 30s
+measured_runs: 5
+warmup_duration: 5s
+cooldown_seconds: 2
+connection_counts: 1 10 25 50 100 250 500 1000 2500 5000 10000 20000
+measured_command_template: wrk --timeout 2s --latency -H Connection:\ close -t EFFECTIVE_THREADS -c CONNECTIONS -d 30s http://127.0.0.1:8080/ 
+latency_unit: microseconds
+transfer_per_sec: original wrk unit
+Missing statistics remain empty; percentiles are never interpolated.
+Effective threads: min(wrk_threads, connections). wrk may round connections down when dividing among threads.
