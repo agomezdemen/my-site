@@ -12,7 +12,7 @@ export const projects: Project[] = [
     slug: 'http-server',
     title: 'Modern C++ HTTP Server',
     summary:
-      'A from-scratch HTTP/1.1 server written in C++23 to explore Linux networking, systems programming, performance measurement, and modern C++ design without abstracting away the underlying OS interfaces.',
+      'A from-scratch HTTP/1.1 server written in C++23 with epoll and non-blocking sockets for event-driven networking. The server currently runs on a single thread, with multithreading planned next.',
     status: 'In progress',
     technologies: [
       'C++23',
@@ -23,13 +23,13 @@ export const projects: Project[] = [
       'GitHub Actions',
       'Custom benchmarking framework',
       'Linux perf',
-      'Non-blocking I/O / epoll in progress',
+      'Non-blocking I/O / epoll',
     ],
     sections: [
       {
         title: 'Overview',
         body:
-          'The server is built directly on Linux/POSIX socket APIs with an emphasis on explicit ownership, testable abstractions, and measurement-driven development. The current implementation supports TCP connections, incremental HTTP request parsing, response serialization, method/path-based routing, and both unit and process-level integration testing. The next major milestone is moving the networking layer from blocking I/O to non-blocking sockets with epoll.',
+          'The server is built directly on Linux/POSIX socket APIs with an emphasis on explicit ownership, testable abstractions, and measurement-driven development. The current implementation supports event-driven TCP connection handling with epoll and non-blocking sockets, incremental HTTP request parsing, response serialization, method/path-based routing, and both unit and process-level integration testing. The next major milestone is adding multithreading.',
       },
       {
         title: 'Architecture',
@@ -38,6 +38,7 @@ export const projects: Project[] = [
         bullets: [
           'Move-only RAII ownership for file descriptors',
           'TCP listener and connection abstractions',
+          'Single-threaded event loop using epoll and non-blocking sockets',
           'Incremental HTTP request parser',
           'HTTP request and response types',
           'Method/path-based router',
@@ -48,7 +49,7 @@ export const projects: Project[] = [
       {
         title: 'Networking',
         body:
-          'The networking layer uses Linux/POSIX sockets directly. TCP resources are managed through RAII so file descriptor ownership is explicit and automatically cleaned up. Connection handling is currently synchronous and blocking while the next stage of the project introduces non-blocking sockets and epoll. That transition is intended to move the server from a correctness-focused HTTP implementation toward an event-driven architecture capable of handling many concurrent connections efficiently.',
+          'The networking layer uses Linux/POSIX sockets directly. TCP resources are managed through RAII so file descriptor ownership is explicit and automatically cleaned up. Connection handling now uses epoll and non-blocking sockets, allowing a single thread to manage multiple concurrent connections by responding to I/O readiness events. This event-driven implementation is complete, and multithreading is the next step.',
       },
       {
         title: 'HTTP Parser',
@@ -68,7 +69,7 @@ export const projects: Project[] = [
       {
         title: 'Testing',
         body:
-          'The project currently has 111 Catch2 tests covering HTTP parsing, request/response behavior, networking utilities, and server behavior. Process-level integration tests launch the real server executable and communicate with it through actual TCP sockets rather than mocking the networking layer. CTest provides the test runner, and GitHub Actions automatically builds and executes the suite in CI.',
+          'The project currently has 121 Catch2 unit tests covering HTTP parsing, request/response behavior, networking utilities, and server behavior. Process-level integration tests launch the real server executable and communicate with it through actual TCP sockets rather than mocking the networking layer. CTest provides the test runner, and GitHub Actions automatically builds and executes the suite in CI.',
       },
       {
         title: 'Benchmarking',
@@ -95,9 +96,10 @@ export const projects: Project[] = [
       {
         title: 'What I Learned',
         body:
-          'This project has given me practical experience with systems programming, protocol parsing, measurement, and performance-oriented C++ design. The next stage is focused on event-driven networking using non-blocking I/O and epoll, followed by concurrent request processing.',
+          'This project has given me practical experience with systems programming, protocol parsing, measurement, and performance-oriented C++ design. Implementing epoll with non-blocking sockets extended that work into event-driven networking. The next stage is adding multithreading so the server can use multiple CPU cores.',
         bullets: [
           'Linux socket programming',
+          'Event-driven networking with epoll and non-blocking sockets',
           'RAII and resource ownership in modern C++',
           'Incremental protocol parsing',
           'Designing around fragmented network input',
